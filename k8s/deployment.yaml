@@ -1,32 +1,25 @@
-# API version for Deployments
 apiVersion: apps/v1
-# Kind of object, a Deployment
 kind: Deployment
 metadata:
-  # Name of the Deployment
   name: wisecow-deployment
 spec:
-  # Number of pods to run
   replicas: 1
-  # Selector to find which pods to manage
   selector:
     matchLabels:
       app: wisecow
-  # Template for creating the pods
   template:
     metadata:
-      # Labels to apply to each pod
       labels:
         app: wisecow
     spec:
       containers:
-      # The container to run in the pod
       - name: wisecow-container
-        # The image to use
-        image: wisecow-app:latest
-        # This policy prevents Kubernetes from trying to pull the image from a remote registry
-        # It forces it to use the local image you loaded.
-        imagePullPolicy: IfNotPresent
-        # The port the container exposes
+        # IMPORTANT: Replace this with the actual image URL from your GitHub Packages.
+        # It will look like ghcr.io/your-username/accuknox:<commit-sha>
+        image: ghcr.io/ambikachatra/accuknox:7dadae3... # <-- UPDATE THIS LINE
+        
+        # This policy ensures Kubernetes always pulls the new image version.
+        imagePullPolicy: Always
+        
         ports:
         - containerPort: 4499
