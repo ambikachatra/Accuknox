@@ -39,4 +39,6 @@ jobs:
       with:
         context: .
         push: true
-        tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+        # FIX: Convert the repository name to lowercase to meet registry requirements.
+        tags: ghcr.io/${{ toLowerCase(github.repository) }}:${{ github.sha }}
+
