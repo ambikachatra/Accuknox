@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wisecow-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wisecow
+  template:
+    metadata:
+      labels:
+        app: wisecow
+    spec:
+      containers:
+      - name: wisecow-container
+        # IMPORTANT: Replace this with the actual image URL from your GitHub Packages.
+        # It will look like ghcr.io/your-username/accuknox:<commit-sha>
+        image: ghcr.io/ambikachatra/accuknox:7dadae3... # <-- UPDATE THIS LINE
+        
+        # This policy ensures Kubernetes always pulls the new image version.
+        imagePullPolicy: Always
+        
+        ports:
+        - containerPort: 4499
