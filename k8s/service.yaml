@@ -1,0 +1,25 @@
+# API version for Services
+apiVersion: v1
+# Kind of object, a Service
+kind: Service
+metadata:
+  # Name of the Service
+  name: wisecow-service
+spec:
+  # Type of service. NodePort exposes the service on each Node's IP at a static port.
+  type: NodePort
+  # Selector to find which pods to route traffic to
+  # This must match the 'app: wisecow' label on the pods.
+  selector:
+    app: wisecow
+  ports:
+    # Port configuration
+    - protocol: TCP
+      # The port on the Service itself
+      port: 80
+      # The port on the pods to forward traffic to
+      targetPort: 4499
+      # The static port on the Node to expose.
+      # You can leave this out and Kubernetes will assign a random one.
+      # We specify it here to make it predictable.
+      nodePort: 30007
